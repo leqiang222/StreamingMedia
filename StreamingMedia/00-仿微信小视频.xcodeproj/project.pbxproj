@@ -12,6 +12,8 @@
 		2B0C24FA1E9BBC2A00AA9A63 /* JCVideoCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C24F81E9BBC2A00AA9A63 /* JCVideoCapture.m */; };
 		2B0C24FE1E9BBC4D00AA9A63 /* JCVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0C24FC1E9BBC4D00AA9A63 /* JCVideoController.m */; };
 		2B0C24FF1E9BBC4D00AA9A63 /* JCVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B0C24FD1E9BBC4D00AA9A63 /* JCVideoController.xib */; };
+		2B0F94621E9BC5D000805045 /* JCAVPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F94611E9BC5D000805045 /* JCAVPlayerController.m */; };
+		2B8BCD981E9BE15C00263225 /* gd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2B8BCD971E9BE15C00263225 /* gd.mp4 */; };
 		84CFB3691D8527F10007D043 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3681D8527F10007D043 /* main.m */; };
 		84CFB36C1D8527F10007D043 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB36B1D8527F10007D043 /* AppDelegate.m */; };
 		84CFB3741D8527F10007D043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB3731D8527F10007D043 /* Assets.xcassets */; };
@@ -28,6 +30,9 @@
 		2B0C24FB1E9BBC4D00AA9A63 /* JCVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVideoController.h; sourceTree = "<group>"; };
 		2B0C24FC1E9BBC4D00AA9A63 /* JCVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVideoController.m; sourceTree = "<group>"; };
 		2B0C24FD1E9BBC4D00AA9A63 /* JCVideoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCVideoController.xib; sourceTree = "<group>"; };
+		2B0F94601E9BC5D000805045 /* JCAVPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAVPlayerController.h; sourceTree = "<group>"; };
+		2B0F94611E9BC5D000805045 /* JCAVPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAVPlayerController.m; sourceTree = "<group>"; };
+		2B8BCD971E9BE15C00263225 /* gd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = gd.mp4; sourceTree = "<group>"; };
 		84CFB3641D8527F10007D043 /* 00-仿微信小视频.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "00-仿微信小视频.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CFB3681D8527F10007D043 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84CFB36A1D8527F10007D043 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +75,23 @@
 			path = JCVideoEncoder;
 			sourceTree = "<group>";
 		};
+		2B0F945E1E9BC59600805045 /* 01-AVPlayer简单使用 */ = {
+			isa = PBXGroup;
+			children = (
+				2B0F94601E9BC5D000805045 /* JCAVPlayerController.h */,
+				2B0F94611E9BC5D000805045 /* JCAVPlayerController.m */,
+			);
+			path = "01-AVPlayer简单使用";
+			sourceTree = "<group>";
+		};
+		2B8BCD961E9BE15300263225 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2B8BCD971E9BE15C00263225 /* gd.mp4 */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		84CFB35B1D8527F10007D043 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +111,7 @@
 		84CFB3661D8527F10007D043 /* 00-仿微信小视频 */ = {
 			isa = PBXGroup;
 			children = (
+				2B0F945E1E9BC59600805045 /* 01-AVPlayer简单使用 */,
 				2B0C24F31E9BBC2100AA9A63 /* 00-EncoderModule */,
 				84CFB36A1D8527F10007D043 /* AppDelegate.h */,
 				84CFB36B1D8527F10007D043 /* AppDelegate.m */,
@@ -105,6 +128,7 @@
 		84CFB3671D8527F10007D043 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2B8BCD961E9BE15300263225 /* Resource */,
 				84CFB3681D8527F10007D043 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -168,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B8BCD981E9BE15C00263225 /* gd.mp4 in Resources */,
 				84CFB3771D8527F10007D043 /* LaunchScreen.storyboard in Resources */,
 				84CFB3741D8527F10007D043 /* Assets.xcassets in Resources */,
 				2B0C24FF1E9BBC4D00AA9A63 /* JCVideoController.xib in Resources */,
@@ -181,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B0F94621E9BC5D000805045 /* JCAVPlayerController.m in Sources */,
 				2B0C24FE1E9BBC4D00AA9A63 /* JCVideoController.m in Sources */,
 				84CFB36C1D8527F10007D043 /* AppDelegate.m in Sources */,
 				2B0C24F91E9BBC2A00AA9A63 /* JCH264Encoder.m in Sources */,
