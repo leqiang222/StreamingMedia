@@ -14,6 +14,13 @@
 		2B0C24FF1E9BBC4D00AA9A63 /* JCVideoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B0C24FD1E9BBC4D00AA9A63 /* JCVideoController.xib */; };
 		2B0F94621E9BC5D000805045 /* JCAVPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F94611E9BC5D000805045 /* JCAVPlayerController.m */; };
 		2B8BCD981E9BE15C00263225 /* gd.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2B8BCD971E9BE15C00263225 /* gd.mp4 */; };
+		2BE74AD01EB75AB600C29CCF /* JCAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74ACF1EB75AB600C29CCF /* JCAudioViewController.m */; };
+		2BE74AD31EB75AE100C29CCF /* JCRemotePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74AD21EB75AE100C29CCF /* JCRemotePlayer.m */; };
+		2BE74AD61EB75BAB00C29CCF /* JCResourceLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74AD51EB75BAB00C29CCF /* JCResourceLoader.m */; };
+		2BE74AD91EB75BC500C29CCF /* JCAudioDownLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74AD81EB75BC500C29CCF /* JCAudioDownLoader.m */; };
+		2BE74ADC1EB75BDB00C29CCF /* JCAudioFileTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74ADB1EB75BDB00C29CCF /* JCAudioFileTool.m */; };
+		2BE74ADF1EB75BFB00C29CCF /* NSURL+Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE74ADE1EB75BFB00C29CCF /* NSURL+Audio.m */; };
+		2BE74AE11EB762E900C29CCF /* JCAudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BE74AE01EB762E900C29CCF /* JCAudioViewController.xib */; };
 		84CFB3691D8527F10007D043 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB3681D8527F10007D043 /* main.m */; };
 		84CFB36C1D8527F10007D043 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CFB36B1D8527F10007D043 /* AppDelegate.m */; };
 		84CFB3741D8527F10007D043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84CFB3731D8527F10007D043 /* Assets.xcassets */; };
@@ -33,6 +40,19 @@
 		2B0F94601E9BC5D000805045 /* JCAVPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAVPlayerController.h; sourceTree = "<group>"; };
 		2B0F94611E9BC5D000805045 /* JCAVPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAVPlayerController.m; sourceTree = "<group>"; };
 		2B8BCD971E9BE15C00263225 /* gd.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = gd.mp4; sourceTree = "<group>"; };
+		2BE74ACE1EB75AB600C29CCF /* JCAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAudioViewController.h; sourceTree = "<group>"; };
+		2BE74ACF1EB75AB600C29CCF /* JCAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAudioViewController.m; sourceTree = "<group>"; };
+		2BE74AD11EB75AE100C29CCF /* JCRemotePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCRemotePlayer.h; sourceTree = "<group>"; };
+		2BE74AD21EB75AE100C29CCF /* JCRemotePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCRemotePlayer.m; sourceTree = "<group>"; };
+		2BE74AD41EB75BAB00C29CCF /* JCResourceLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCResourceLoader.h; sourceTree = "<group>"; };
+		2BE74AD51EB75BAB00C29CCF /* JCResourceLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCResourceLoader.m; sourceTree = "<group>"; };
+		2BE74AD71EB75BC500C29CCF /* JCAudioDownLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAudioDownLoader.h; sourceTree = "<group>"; };
+		2BE74AD81EB75BC500C29CCF /* JCAudioDownLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAudioDownLoader.m; sourceTree = "<group>"; };
+		2BE74ADA1EB75BDB00C29CCF /* JCAudioFileTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAudioFileTool.h; sourceTree = "<group>"; };
+		2BE74ADB1EB75BDB00C29CCF /* JCAudioFileTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAudioFileTool.m; sourceTree = "<group>"; };
+		2BE74ADD1EB75BFB00C29CCF /* NSURL+Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Audio.h"; sourceTree = "<group>"; };
+		2BE74ADE1EB75BFB00C29CCF /* NSURL+Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Audio.m"; sourceTree = "<group>"; };
+		2BE74AE01EB762E900C29CCF /* JCAudioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JCAudioViewController.xib; sourceTree = "<group>"; };
 		84CFB3641D8527F10007D043 /* 00-仿微信小视频.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "00-仿微信小视频.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84CFB3681D8527F10007D043 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84CFB36A1D8527F10007D043 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +112,34 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		2BE74AC21EB75A6200C29CCF /* 02-远程播放缓存音频 */ = {
+			isa = PBXGroup;
+			children = (
+				2BE74ACE1EB75AB600C29CCF /* JCAudioViewController.h */,
+				2BE74ACF1EB75AB600C29CCF /* JCAudioViewController.m */,
+				2BE74AE01EB762E900C29CCF /* JCAudioViewController.xib */,
+				2BE74AC31EB75A6E00C29CCF /* Lib */,
+			);
+			path = "02-远程播放缓存音频";
+			sourceTree = "<group>";
+		};
+		2BE74AC31EB75A6E00C29CCF /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				2BE74AD11EB75AE100C29CCF /* JCRemotePlayer.h */,
+				2BE74AD21EB75AE100C29CCF /* JCRemotePlayer.m */,
+				2BE74AD41EB75BAB00C29CCF /* JCResourceLoader.h */,
+				2BE74AD51EB75BAB00C29CCF /* JCResourceLoader.m */,
+				2BE74AD71EB75BC500C29CCF /* JCAudioDownLoader.h */,
+				2BE74AD81EB75BC500C29CCF /* JCAudioDownLoader.m */,
+				2BE74ADA1EB75BDB00C29CCF /* JCAudioFileTool.h */,
+				2BE74ADB1EB75BDB00C29CCF /* JCAudioFileTool.m */,
+				2BE74ADD1EB75BFB00C29CCF /* NSURL+Audio.h */,
+				2BE74ADE1EB75BFB00C29CCF /* NSURL+Audio.m */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
 		84CFB35B1D8527F10007D043 = {
 			isa = PBXGroup;
 			children = (
@@ -111,6 +159,7 @@
 		84CFB3661D8527F10007D043 /* 00-仿微信小视频 */ = {
 			isa = PBXGroup;
 			children = (
+				2BE74AC21EB75A6200C29CCF /* 02-远程播放缓存音频 */,
 				2B0F945E1E9BC59600805045 /* 01-AVPlayer简单使用 */,
 				2B0C24F31E9BBC2100AA9A63 /* 00-EncoderModule */,
 				84CFB36A1D8527F10007D043 /* AppDelegate.h */,
@@ -192,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE74AE11EB762E900C29CCF /* JCAudioViewController.xib in Resources */,
 				2B8BCD981E9BE15C00263225 /* gd.mp4 in Resources */,
 				84CFB3771D8527F10007D043 /* LaunchScreen.storyboard in Resources */,
 				84CFB3741D8527F10007D043 /* Assets.xcassets in Resources */,
@@ -206,13 +256,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BE74AD31EB75AE100C29CCF /* JCRemotePlayer.m in Sources */,
+				2BE74ADC1EB75BDB00C29CCF /* JCAudioFileTool.m in Sources */,
+				2BE74AD01EB75AB600C29CCF /* JCAudioViewController.m in Sources */,
 				2B0F94621E9BC5D000805045 /* JCAVPlayerController.m in Sources */,
 				2B0C24FE1E9BBC4D00AA9A63 /* JCVideoController.m in Sources */,
 				84CFB36C1D8527F10007D043 /* AppDelegate.m in Sources */,
+				2BE74AD61EB75BAB00C29CCF /* JCResourceLoader.m in Sources */,
 				2B0C24F91E9BBC2A00AA9A63 /* JCH264Encoder.m in Sources */,
 				2B0C24F21E9BBA7C00AA9A63 /* JCRootViewController.m in Sources */,
 				84CFB3691D8527F10007D043 /* main.m in Sources */,
 				2B0C24FA1E9BBC2A00AA9A63 /* JCVideoCapture.m in Sources */,
+				2BE74ADF1EB75BFB00C29CCF /* NSURL+Audio.m in Sources */,
+				2BE74AD91EB75BC500C29CCF /* JCAudioDownLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

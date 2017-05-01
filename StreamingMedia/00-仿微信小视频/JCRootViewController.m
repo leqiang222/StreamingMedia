@@ -9,6 +9,7 @@
 #import "JCRootViewController.h"
 #import "JCVideoController.h" // 00 视频采集 + 硬编码
 #import "JCAVPlayerController.h" // 01 AVPlayer简单使用
+#import "JCAudioViewController.h"
 
 @interface JCRootViewController ()
 /** <#Description#> */
@@ -21,9 +22,6 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"选项入口";
-    
-    self.listArray = @[@"视频采集->硬编码->存储->硬解码->播放",
-                       @"AVPlayer简单使用"];
 }
 
 #pragma mark - Table view data source
@@ -63,9 +61,25 @@
         }
             break;
             
+        case 2: {
+            JCAudioViewController *audio = [[JCAudioViewController alloc] init];
+            [self.navigationController pushViewController:audio animated:YES];
+        }
+            break;
+            
         default:
             break;
     }
 }
 
+#pragma mark - Lazy
+- (NSArray *)listArray {
+    if (!_listArray) {
+        _listArray = @[@"视频采集->硬编码->存储->硬解码->播放",
+                       @"AVPlayer简单使用",
+                       @"远程播放缓存音频"];
+
+    }
+    return _listArray;
+}
 @end
