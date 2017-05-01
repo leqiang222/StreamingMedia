@@ -20,7 +20,6 @@
 
 @property (weak, nonatomic) IBOutlet UIProgressView *loadProgressProgress;
 
-
 /** 远程并缓存资源播放器 */
 @property (nonatomic, strong) JCRemotePlayer *player;
 @property (nonatomic, weak) NSTimer *timer;
@@ -42,15 +41,15 @@
     
     NSString *path = @"http://audio.xmcdn.com/group23/M06/5C/70/wKgJL1g0DVahoMhrAMJMkvfN17c025.m4a";
     NSURL *url = [NSURL URLWithString:path];
-    [self.player playWithURL:url];
+    [self.player playWithURL:url isCache:YES];
     
-    [self.player setStateChange:^(JCRemotePlayerState state) { // 播放状态改变
-        NSLog(@"/remoteAudio/-------- 播放状态状态: %zd --------/remoteAudio/", state);
-    }];
+//    [self.player setStateChange:^(JCRemotePlayerState state) { // 播放状态改变
+//        NSLog(@"/remoteAudio/-------- 播放状态状态: %zd --------/remoteAudio/", state);
+//    }];
     
-    [self.player setPlayEndBlock:^{ // 播放完成
-        NSLog(@"/remoteAudio/-------- 播放完成 --------/remoteAudio/");
-    }];
+//    [self.player setPlayEndBlock:^{ // 播放完成
+//        NSLog(@"/remoteAudio/-------- 播放完成 --------/remoteAudio/");
+//    }];
 }
 
 /**
@@ -71,7 +70,7 @@
  *  快进或快退
  */
 - (IBAction)fastOrSlow:(UIButton *)sender {
-    [self.player seekWithTime:20];
+    [self.player seekWithTimeDiffer:20];
 }
 
 /**
@@ -86,7 +85,7 @@
  */
 - (IBAction)mute:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [self.player setMute:sender.selected];
+    [self.player setMuted:sender.selected];
 }
 
 #pragma mark - Action(Slider)
@@ -94,7 +93,7 @@
  *  播放进度
  */
 - (IBAction)progress:(UISlider *)sender {
-     [self.player setProgress:sender.value];
+     [self.player seekWithProgress:sender.value];
 }
 
 
@@ -105,16 +104,35 @@
      [self.player setVolume:sender.value];
 }
 
+- (void)update {
+    
+    //    NSLog(@"--%zd", [XMGRemotePlayer shareInstance].state);
+    // 68
+    // 01:08
+    // 设计数据模型的
+    // 弱业务逻辑存放位置的问题
+//    self.playTimeLabel.text =  [XMGRemotePlayer shareInstance].currentTimeFormat;
+//    self.totalTimeLabel.text = [XMGRemotePlayer shareInstance].totalTimeFormat;
+//    
+//    self.playSlider.value = [XMGRemotePlayer shareInstance].progress;
+//    
+//    self.volumeSlider.value = [XMGRemotePlayer shareInstance].volume;
+//    
+//    self.loadPV.progress = [XMGRemotePlayer shareInstance].loadDataProgress;
+//    
+//    self.mutedBtn.selected = [XMGRemotePlayer shareInstance].muted;
+}
 
-#pragma mark - Action
+
+#pragma mark - Lazy
 - (NSTimer *)timer {
     if (!_timer) {
         NSTimer *timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(update) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
         _timer = timer;
     }
-    return _timer;
     
+    return _timer;
 }
 
 
@@ -124,4 +142,6 @@
     }
     return _player;
 }
+
+
 @end

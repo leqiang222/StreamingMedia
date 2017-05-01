@@ -18,29 +18,51 @@
 
 @implementation JCAudioDownLoader
 
-#pragma mark - Public
-- (void)downLoadWithURL: (NSURL *)url offset: (long long)offset {
-
+- (void)downLoadWithURL:(NSURL *)url offset:(long long)offset {
+    [self cancelAndClean];
+    
     self.url = url;
     self.offset = offset;
     
-    // 取消之间的下载任务
-    [self cancelBeforeLoad];
+    // 请求的是某一个区间的数据 Range
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
+    [request setValue:[NSString stringWithFormat:@"bytes=%lld-", offset] forHTTPHeaderField:@"Range"];
     
-    // 开启下载任务
-    [self startLoadDataRequest];
+    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
+    [task resume];
+    
 }
 
-#pragma mark - NSURLSessionDataDelegate
-/**
- *  接收的响应
- */
-- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
+
+- (void)cancelAndClean {
+    // 取消
+    [self.session invalidateAndCancel];
+    self.session = nil;
+    // 清空本地已经存储的临时缓存
+    [JCAudioFileTool removeTmpFileWithURL:self.url];
     
-    NSHTTPURLResponse *httpResponse =  (NSHTTPURLResponse *)response;
     
-    self.totalSize = [[[httpResponse.allHeaderFields[@"Content-Range"] componentsSeparatedByString:@"/"] lastObject] longLongValue];
-    self.contentType = httpResponse.MIMEType;
+    // 重置数据
+    self.loadedSize = 0;
+}
+
+
+#pragma mark - NSURLSessionDataDelegate {
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSHTTPURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
+    
+    // 1. 从  Content-Length 取出来
+    // 2. 如果 Content-Range 有, 应该从Content-Range里面获取
+    self.totalSize = [response.allHeaderFields[@"Content-Length"] longLongValue];
+    NSString *contentRangeStr = response.allHeaderFields[@"Content-Range"];
+    if (contentRangeStr.length != 0) {
+        self.totalSize = [[contentRangeStr componentsSeparatedByString:@"/"].lastObject longLongValue];
+    }
+    
+    
+    self.mimeType = response.MIMEType;
+    
+    
     
     self.outputStream = [NSOutputStream outputStreamToFileAtPath:[JCAudioFileTool tmpPathWithURL:self.url] append:YES];
     [self.outputStream open];
@@ -48,9 +70,7 @@
     completionHandler(NSURLSessionResponseAllow);
 }
 
-/**
- *  接收到数据
- */
+
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     self.loadedSize += data.length;
     [self.outputStream write:data.bytes maxLength:data.length];
@@ -61,39 +81,22 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    
     if (error == nil) {
-        // 判断, 本地下载的大小, 是否等于文件的总大小
-        if ([JCAudioFileTool tmpFileSizeWithURL:self.url] == self.totalSize) {
-            [JCAudioFileTool moveTmpPathToCachePath:self.url];
+        NSURL *url = self.url;
+        if ([JCAudioFileTool tmpFileSizeWithURL:url] == self.totalSize) {
+            //            移动文件 : 临时文件夹 -> cache文件夹
+            [JCAudioFileTool moveTmpPathToCachePath:url];
         }
+        
+        
+    }else {
+        NSLog(@"有错误");
     }
+    
+    
 }
 
-#pragma mark - Private
-/**
- *  取消之间的下载任务
- */
-- (void)cancelBeforeLoad {
-    [self.session invalidateAndCancel];
-    self.session = nil;
-    
-    // 清理缓存
-    [JCAudioFileTool removeTmpFileWithURL:self.url];
-    
-    // 重置数据
-    self.loadedSize = 0;
-}
-
-/**
- *  开启下载任务
- */
-- (void)startLoadDataRequest {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:0];
-    [request setValue:[NSString stringWithFormat:@"bytes=%lld-", self.offset] forHTTPHeaderField:@"Range"];
-    
-    NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
-    [task resume];
-}
 
 #pragma mark - Lazy
 - (NSURLSession *)session {
@@ -102,5 +105,4 @@
     }
     return _session;
 }
-
 @end
