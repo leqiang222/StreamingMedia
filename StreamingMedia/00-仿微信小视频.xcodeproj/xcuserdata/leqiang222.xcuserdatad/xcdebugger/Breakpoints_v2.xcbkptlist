@@ -13,5 +13,37 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "00-&#x4eff;&#x5fae;&#x4fe1;&#x5c0f;&#x89c6;&#x9891;/02-&#x8fdc;&#x7a0b;&#x64ad;&#x653e;&#x7f13;&#x5b58;&#x97f3;&#x9891;/Lib/JCAudioDownLoader.m"
+            timestampString = "515402526.24719"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "-URLSession:task:didCompleteWithError:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "00-&#x4eff;&#x5fae;&#x4fe1;&#x5c0f;&#x89c6;&#x9891;/02-&#x8fdc;&#x7a0b;&#x64ad;&#x653e;&#x7f13;&#x5b58;&#x97f3;&#x9891;/Lib/JCResourceLoader.m"
+            timestampString = "515404041.530986"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-resourceLoader:shouldWaitForLoadingOfRequestedResource:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

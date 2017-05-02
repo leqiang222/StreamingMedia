@@ -15,7 +15,10 @@
 @implementation JCAudioFileTool
 #pragma mark - Public
 + (NSString *)cachePathWithURL: (NSURL *)url {
-    return [kCachePath stringByAppendingPathComponent:url.lastPathComponent];
+    NSString *path = [kCachePath stringByAppendingPathComponent:url.lastPathComponent];
+    NSLog(@"/remoteAudio/-------- 音频沙盒路径: %@ --------/remoteAudio/", path);
+    
+    return path;
 }
 
 + (NSString *)tmpPathWithURL: (NSURL *)url {
@@ -47,6 +50,7 @@
     
     NSString *path = [self cachePathWithURL:url];
     NSDictionary *fileInfo = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    
     return  [fileInfo[NSFileSize] longLongValue]; 
 }
 
@@ -57,33 +61,24 @@
     }
     NSString *path = [self tmpPathWithURL:url];
     NSDictionary *fileInfo = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:nil];
+    
     return  [fileInfo[NSFileSize] longLongValue];
-    
-    
 }
 
 + (void)removeTmpFileWithURL: (NSURL *)url {
     if ([self isTmpFileExists:url]) {
-        
         [[NSFileManager defaultManager] removeItemAtPath:[self tmpPathWithURL:url] error:nil];
     }
 }
 
 
 + (void)moveTmpPathToCachePath: (NSURL *)url {
-    
-    
     if ([self isTmpFileExists:url]) {
         NSString *tmpPath = [self tmpPathWithURL:url];
         NSString *cachePath = [self cachePathWithURL:url];
         
         [[NSFileManager defaultManager] moveItemAtPath:tmpPath toPath:cachePath error:nil];
     }
-    
-    
-    
 }
-
-
 
 @end

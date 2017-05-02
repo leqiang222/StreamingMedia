@@ -30,9 +30,7 @@
     
     NSURLSessionDataTask *task = [self.session dataTaskWithRequest:request];
     [task resume];
-    
 }
-
 
 - (void)cancelAndClean {
     // 取消
@@ -41,16 +39,12 @@
     // 清空本地已经存储的临时缓存
     [JCAudioFileTool removeTmpFileWithURL:self.url];
     
-    
     // 重置数据
     self.loadedSize = 0;
 }
 
-
 #pragma mark - NSURLSessionDataDelegate {
-
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveResponse:(NSHTTPURLResponse *)response completionHandler:(void (^)(NSURLSessionResponseDisposition))completionHandler {
-    
     // 1. 从  Content-Length 取出来
     // 2. 如果 Content-Range 有, 应该从Content-Range里面获取
     self.totalSize = [response.allHeaderFields[@"Content-Length"] longLongValue];
@@ -59,17 +53,13 @@
         self.totalSize = [[contentRangeStr componentsSeparatedByString:@"/"].lastObject longLongValue];
     }
     
-    
     self.mimeType = response.MIMEType;
-    
-    
     
     self.outputStream = [NSOutputStream outputStreamToFileAtPath:[JCAudioFileTool tmpPathWithURL:self.url] append:YES];
     [self.outputStream open];
     
     completionHandler(NSURLSessionResponseAllow);
 }
-
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
     self.loadedSize += data.length;
@@ -81,22 +71,18 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    
     if (error == nil) {
+        NSLog(@"/remoteAudio/-------- 完成下载 --------/remoteAudio/");
+        
         NSURL *url = self.url;
         if ([JCAudioFileTool tmpFileSizeWithURL:url] == self.totalSize) {
-            //            移动文件 : 临时文件夹 -> cache文件夹
+            //  移动文件 : 临时文件夹 -> cache文件夹
             [JCAudioFileTool moveTmpPathToCachePath:url];
         }
-        
-        
     }else {
-        NSLog(@"有错误");
+        NSLog(@"/remoteAudio/-------- 下载出错, error: %@ --------/remoteAudio/", error);
     }
-    
-    
 }
-
 
 #pragma mark - Lazy
 - (NSURLSession *)session {

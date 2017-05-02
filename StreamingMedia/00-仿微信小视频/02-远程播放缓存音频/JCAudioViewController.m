@@ -20,8 +20,6 @@
 
 @property (weak, nonatomic) IBOutlet UIProgressView *loadProgressProgress;
 
-/** 远程并缓存资源播放器 */
-@property (nonatomic, strong) JCRemotePlayer *player;
 @property (nonatomic, weak) NSTimer *timer;
 @end
 
@@ -39,9 +37,10 @@
 - (IBAction)play:(id)sender {
     NSLog(@"/remoteAudio/-------- 开始播放 --------/remoteAudio/");
     
-    NSString *path = @"http://audio.xmcdn.com/group23/M06/5C/70/wKgJL1g0DVahoMhrAMJMkvfN17c025.m4a";
+//    NSString *path = @"http://audio.xmcdn.com/group23/M06/5C/70/wKgJL1g0DVahoMhrAMJMkvfN17c025.m4a";
+    NSString *path = @"http://120.25.226.186:32812/resources/videos/minion_01.mp4";
     NSURL *url = [NSURL URLWithString:path];
-    [self.player playWithURL:url isCache:YES];
+    [[JCRemotePlayer shareInstance] playWithURL:url isCache:YES];
     
 //    [self.player setStateChange:^(JCRemotePlayerState state) { // 播放状态改变
 //        NSLog(@"/remoteAudio/-------- 播放状态状态: %zd --------/remoteAudio/", state);
@@ -56,28 +55,28 @@
  *  暂停
  */
 - (IBAction)pause:(UIButton *)sender {
-    [self.player pause];
+    [[JCRemotePlayer shareInstance] pause];
 }
 
 /**
  *  继续
  */
 - (IBAction)resume:(UIButton *)sender {
-    [self.player resume];
+    [[JCRemotePlayer shareInstance] resume];
 }
 
 /**
  *  快进或快退
  */
 - (IBAction)fastOrSlow:(UIButton *)sender {
-    [self.player seekWithTimeDiffer:20];
+    [[JCRemotePlayer shareInstance] seekWithTimeDiffer:20];
 }
 
 /**
  *  倍数
  */
 - (IBAction)rate:(UIButton *)sender {
-    [self.player setRate:2.0];
+    [[JCRemotePlayer shareInstance] setRate:2.0];
 }
 
 /**
@@ -85,7 +84,7 @@
  */
 - (IBAction)mute:(UIButton *)sender {
     sender.selected = !sender.selected;
-    [self.player setMuted:sender.selected];
+    [[JCRemotePlayer shareInstance] setMuted:sender.selected];
 }
 
 #pragma mark - Action(Slider)
@@ -93,7 +92,7 @@
  *  播放进度
  */
 - (IBAction)progress:(UISlider *)sender {
-     [self.player seekWithProgress:sender.value];
+     [[JCRemotePlayer shareInstance] seekWithProgress:sender.value];
 }
 
 
@@ -101,7 +100,7 @@
  *  调节音量大小
  */
 - (IBAction)volume:(UISlider *)sender {
-     [self.player setVolume:sender.value];
+     [[JCRemotePlayer shareInstance] setVolume:sender.value];
 }
 
 - (void)update {
@@ -136,12 +135,12 @@
 }
 
 
-- (JCRemotePlayer *)player {
-    if (!_player) {
-        _player = [[JCRemotePlayer alloc] init];
-    }
-    return _player;
-}
+//- (JCRemotePlayer *)player {
+//    if (!_player) {
+//        _player = [[JCRemotePlayer alloc] init];
+//    }
+//    return _player;
+//}
 
 
 @end

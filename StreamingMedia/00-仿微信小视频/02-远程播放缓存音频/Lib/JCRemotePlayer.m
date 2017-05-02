@@ -24,32 +24,6 @@ static JCRemotePlayer *_shareInstance;
 @end
 
 @implementation JCRemotePlayer
-#pragma mark - 单例方法
-+ (instancetype)shareInstance {
-    if (!_shareInstance) {
-        _shareInstance = [[JCRemotePlayer alloc] init];
-    }
-    return _shareInstance;
-}
-
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    if (!_shareInstance) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            _shareInstance = [super allocWithZone:zone];
-        });
-    }
-    return _shareInstance;
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return _shareInstance;
-}
-
--(id)mutableCopyWithZone:(NSZone *)zone {
-    return _shareInstance;
-}
-
 
 #pragma mark - Public
 - (void)playWithURL:(NSURL *)url isCache:(BOOL)isCache {
@@ -57,8 +31,9 @@ static JCRemotePlayer *_shareInstance;
     NSURL *currentURL = [(AVURLAsset *)self.player.currentItem.asset URL];
     if ([url isEqual:currentURL] || [[url kl_streamingURL] isEqual:currentURL]) {
         NSLog(@"/remoteAudio/-------- 当前播放任务已经存在 --------/remoteAudio/");
-        // 继续播放
-        [self resume];
+        
+        [self resume]; // 继续播放
+        
         return;
     }
     
@@ -80,7 +55,7 @@ static JCRemotePlayer *_shareInstance;
     AVURLAsset *asset = [AVURLAsset assetWithURL:url];
     // 关于网络音频的请求, 是通过这个对象, 调用代理的相关方法, 进行加载的
     // 拦截加载的请求, 只需要, 重新修改它的代理方法就可以
-    self.resourceLoader = [JCResourceLoader new];
+    self.resourceLoader = [[JCResourceLoader alloc] init];
     [asset.resourceLoader setDelegate:self.resourceLoader queue:dispatch_get_main_queue()];
     
     // 2. 资源的组织
@@ -152,7 +127,6 @@ static JCRemotePlayer *_shareInstance;
 }
 
 - (void)seekWithTimeDiffer:(NSTimeInterval)timeDiffer {
-    
     // 1. 当前音频资源的总时长
     NSTimeInterval totalTimeSec = [self totalTime];
     // 2. 当前音频, 已经播放的时长
@@ -161,7 +135,6 @@ static JCRemotePlayer *_shareInstance;
     playTimeSec += timeDiffer;
     
     [self seekWithProgress:playTimeSec / totalTimeSec];
-    
 }
 
 #pragma mark - Setter、Getter
@@ -272,7 +245,6 @@ static JCRemotePlayer *_shareInstance;
     NSTimeInterval loadTimeSec = CMTimeGetSeconds(loadTime);
     
     return loadTimeSec / self.totalTime;
-    
 }
 
 /**
@@ -294,16 +266,15 @@ static JCRemotePlayer *_shareInstance;
  播放完成
  */
 - (void)playEnd {
-    NSLog(@"播放完成");
+    NSLog(@"/remoteAudio/-------- 播放完成 --------/remoteAudio/");
     self.state = JCRemotePlayerStateStopped;
 }
 
 /**
- 被打断
+ 被打断, 包括来电话, 资源加载跟不上等情况
  */
 - (void)playInterupt {
-    // 来电话, 资源加载跟不上
-    NSLog(@"播放被打断");
+    NSLog(@"/remoteAudio/-------- 播放被打断 --------/remoteAudio/");
     self.state = JCRemotePlayerStatePause;
 }
  
@@ -312,17 +283,31 @@ static JCRemotePlayer *_shareInstance;
     
     if ([keyPath isEqualToString:@"status"]) {
         AVPlayerItemStatus status = [change[NSKeyValueChangeNewKey] integerValue];
-        if (status == AVPlayerItemStatusReadyToPlay) {
-            NSLog(@"资源准备好了, 这时候播放就没有问题");
-            [self resume];
-        }else {
-            NSLog(@"状态未知");
-            self.state = JCRemotePlayerStateFailed;
+        
+        switch (status) {
+            case AVPlayerItemStatusReadyToPlay: {
+                NSLog(@"/remoteAudio/-------- 资源准备好了, 可以播放 --------/remoteAudio/");
+                [self resume];
+            }
+            break;
+                
+            case AVPlayerItemStatusUnknown: {
+                NSLog(@"/remoteAudio/-------- 资源状态未知 --------/remoteAudio/");
+                self.state = JCRemotePlayerStateUnknown;
+            }
+            break;
+            
+            case AVPlayerItemStatusFailed: {
+                NSLog(@"/remoteAudio/-------- 资源准备失败 --------/remoteAudio/");
+                self.state = JCRemotePlayerStateFailed;
+            }
+            break;
         }
+
     }else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]) {
         BOOL ptk = [change[NSKeyValueChangeNewKey] boolValue];
         if (ptk) {
-            NSLog(@"当前的资源, 准备的已经足够播放了");
+            NSLog(@"/remoteAudio/-------- 当前的资源, 准备的已经足够播放了 --------/remoteAudio/");
             //
             // 用户的手动暂停的优先级最高
             if (!_isUserPause) {
@@ -332,11 +317,9 @@ static JCRemotePlayer *_shareInstance;
             }
             
         }else {
-            NSLog(@"资源还不够, 正在加载过程当中");
+            NSLog(@"/remoteAudio/-------- 资源还不够, 正在加载过程当中 --------/remoteAudio/");
             self.state = JCRemotePlayerStateLoading;
         }
-        
-        
     }
 }
 
@@ -348,4 +331,31 @@ static JCRemotePlayer *_shareInstance;
     [self.player.currentItem removeObserver:self forKeyPath:@"playbackLikelyToKeepUp"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark - 单例方法
++ (instancetype)shareInstance {
+    if (!_shareInstance) {
+        _shareInstance = [[JCRemotePlayer alloc] init];
+    }
+    return _shareInstance;
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
+    if (!_shareInstance) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            _shareInstance = [super allocWithZone:zone];
+        });
+    }
+    return _shareInstance;
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return _shareInstance;
+}
+
+-(id)mutableCopyWithZone:(NSZone *)zone {
+    return _shareInstance;
+}
+
 @end
